@@ -1,0 +1,25 @@
+!pip install -q -U google-generativeai
+
+# Import the Python SDK
+import google.generativeai as genai
+import json
+
+file_path = "hidden\\genmini_config.json"
+
+with open(file_path, 'r') as file:
+    config = json.load(file)
+
+API_KEY = config.get("API_KEY")
+
+genai.configure(api_key=API_KEY)
+
+# モデルの選択（お好きな方を）
+# model = genai.GenerativeModel('gemini-pro')
+model = genai.GenerativeModel('gemini-1.5-flash')
+
+prompt = """
+子供向けの物語を考えて
+"""
+
+response = model.generate_content(prompt)
+print(response.text)
